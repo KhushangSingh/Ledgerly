@@ -155,8 +155,8 @@ const PrivacyPolicy = () => {
                         <h2 className="text-2xl font-semibold text-white mb-4">Contact Us</h2>
                         <p className="text-gray-300 leading-relaxed">
                             If you have any questions about this Privacy Policy, please contact us at:{' '}
-                            <a href="mailto:support@ledgerly.com" className="text-blue-400 hover:text-blue-300">
-                                support@ledgerly.com
+                            <a href="mailto:khushangsingh.work@gmail.com" className="text-blue-400 hover:text-blue-300">
+                                khushangsingh.work@gmail.com
                             </a>
                         </p>
                     </section>
