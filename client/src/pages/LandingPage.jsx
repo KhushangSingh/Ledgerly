@@ -392,13 +392,17 @@ const LandingPage = () => {
                 <div className="w-full pt-20 pb-12">
                     <div className="max-w-7xl mx-auto px-6 md:px-12">
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-16">
-                            <div className="col-span-1 md:col-span-4 space-y-6">
-                                <div className="flex items-center gap-2">
-                                    <img src={logo} alt="Logo" className="w-10 h-10 object-contain" />
-                                    <span className="text-2xl font-bold text-white tracking-tight">Ledgerly</span>
+                            <div>
+                                <div className="flex items-center gap-2 mb-6">
+                                    <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-500 to-indigo-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/20">
+                                        L
+                                    </div>
+                                    <span className="text-xl font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
+                                        Ledgerly
+                                    </span>
                                 </div>
                                 <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-                                    The intelligent link management platform for developers, designers, and creators. Organize your digital life with elegance and speed.
+                                    Your personal digital vault for the web. Capture, organize, and rediscover your favorite links with a beautiful, distraction-free interface designed for clarity and focus.
                                 </p>
                             </div>
                             <div className="col-span-1 md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8">
@@ -408,6 +412,7 @@ const LandingPage = () => {
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Browser Extension</Link></li>
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">QR Code Generator</Link></li>
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Bulk Import</Link></li>
+                                        <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Bookmarklet</Link></li>
                                     </ul>
                                 </div>
                                 <div>
@@ -418,7 +423,6 @@ const LandingPage = () => {
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Community</Link></li>
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Private Vault</Link></li>
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Collections</Link></li>
-                                        <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Starred Links</Link></li>
                                     </ul>
                                 </div>
                                 <div>
@@ -426,7 +430,7 @@ const LandingPage = () => {
                                     <ul className="space-y-4 text-sm text-slate-500">
                                         <li><Link to="/privacy" className="hover:text-blue-400 transition-colors">Privacy Policy</Link></li>
                                         <li><Link to="/terms" className="hover:text-blue-400 transition-colors">Terms of Service</Link></li>
-                                        <li><a href="mailto:khushangsingh.work@gmail.com" className="hover:text-blue-400 transition-colors">Contact</a></li>
+                                        <li><a href="https://khushangsingh.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">Contact</a></li>
                                     </ul>
                                 </div>
                             </div>
