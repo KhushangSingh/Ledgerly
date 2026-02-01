@@ -93,7 +93,7 @@ router.post('/login', async (req, res) => {
 
         // Check if user has a password (might be OAuth-only user)
         if (!user.password) {
-            return res.status(400).json({ msg: 'Please login with Google or set a password' });
+            return res.status(400).json({ msg: 'Please login with Google/GitHub or set a password' });
         }
 
         // Validate password
