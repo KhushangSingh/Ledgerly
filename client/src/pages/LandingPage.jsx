@@ -401,29 +401,24 @@ const LandingPage = () => {
                                     The intelligent link management platform for developers, designers, and creators. Organize your digital life with elegance and speed.
                                 </p>
                             </div>
-                            <div className="col-span-1 md:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+                            <div className="col-span-1 md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8">
                                 <div>
-                                    <h4 className="font-bold text-white mb-6">Product</h4>
+                                    <h4 className="font-bold text-white mb-6">Tools</h4>
                                     <ul className="space-y-4 text-sm text-slate-500">
-                                        {['Features', 'Integrations', 'Pricing', 'Changelog', 'Docs'].map((item) => (
-                                            <li key={item}><a href="#" className="hover:text-blue-400 transition-colors">{item}</a></li>
-                                        ))}
+                                        <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Browser Extension</Link></li>
+                                        <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">QR Code Generator</Link></li>
+                                        <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Link Shortener</Link></li>
+                                        <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Bulk Import</Link></li>
                                     </ul>
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-white mb-6">Company</h4>
+                                    <h4 className="font-bold text-white mb-6">Features</h4>
                                     <ul className="space-y-4 text-sm text-slate-500">
-                                        {['About Us', 'Careers', 'Blog', 'Contact', 'Partners'].map((item) => (
-                                            <li key={item}><a href="#" className="hover:text-blue-400 transition-colors">{item}</a></li>
-                                        ))}
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-white mb-6">Resources</h4>
-                                    <ul className="space-y-4 text-sm text-slate-500">
-                                        {['Community', 'Help Center', 'Status', 'Terms of Service'].map((item) => (
-                                            <li key={item}><a href="#" className="hover:text-blue-400 transition-colors">{item}</a></li>
-                                        ))}
+                                        <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Link Hub</Link></li>
+                                        <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Categories</Link></li>
+                                        <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Collections</Link></li>
+                                        <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Starred Links</Link></li>
+                                        <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Private Vault</Link></li>
                                     </ul>
                                 </div>
                                 <div>
@@ -431,8 +426,7 @@ const LandingPage = () => {
                                     <ul className="space-y-4 text-sm text-slate-500">
                                         <li><Link to="/privacy" className="hover:text-blue-400 transition-colors">Privacy Policy</Link></li>
                                         <li><Link to="/terms" className="hover:text-blue-400 transition-colors">Terms of Service</Link></li>
-                                        <li><a href="#" className="hover:text-blue-400 transition-colors">Security</a></li>
-                                        <li><a href="#" className="hover:text-blue-400 transition-colors">Sitemap</a></li>
+                                        <li><a href="mailto:khushangsingh.work@gmail.com" className="hover:text-blue-400 transition-colors">Contact</a></li>
                                     </ul>
                                 </div>
                             </div>
