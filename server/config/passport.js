@@ -16,41 +16,45 @@ passport.deserializeUser(async (id, done) => {
     }
 });
 
-// Google Strategy
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "/api/auth/google/callback"
-},
-    async (accessToken, refreshToken, profile, done) => {
-        try {
-            // 1. Check if user exists by googleId
-            let user = await User.findOne({ googleId: profile.id });
-            if (user) return done(null, user);
+// Google Strategy (Optional - only if credentials are provided)
+if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+    passport.use(new GoogleStrategy({
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: "/api/auth/google/callback"
+    },
+        async (accessToken, refreshToken, profile, done) => {
+            try {
+                // 1. Check if user exists by googleId
+                let user = await User.findOne({ googleId: profile.id });
+                if (user) return done(null, user);
 
-            // 2. Check if user exists by email (link account)
-            const email = profile.emails[0].value;
-            user = await User.findOne({ email });
+                // 2. Check if user exists by email (link account)
+                const email = profile.emails[0].value;
+                user = await User.findOne({ email });
 
-            if (user) {
-                user.googleId = profile.id;
+                if (user) {
+                    user.googleId = profile.id;
+                    await user.save();
+                    return done(null, user);
+                }
+
+                // 3. Create new user
+                user = new User({
+                    username: profile.displayName,
+                    email: email,
+                    googleId: profile.id,
+                    // Password is not required now
+                });
                 await user.save();
-                return done(null, user);
+                done(null, user);
+            } catch (err) {
+                done(err, null);
             }
-
-            // 3. Create new user
-            user = new User({
-                username: profile.displayName,
-                email: email,
-                googleId: profile.id,
-                // Password is not required now
-            });
-            await user.save();
-            done(null, user);
-        } catch (err) {
-            done(err, null);
-        }
-    }));
+        }));
+} else {
+    console.log('Google OAuth not configured - skipping Google Strategy');
+}
 
 // Apple Strategy (Placeholder until keys are available)
 /*
