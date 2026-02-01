@@ -407,7 +407,6 @@ const LandingPage = () => {
                                     <ul className="space-y-4 text-sm text-slate-500">
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Browser Extension</Link></li>
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">QR Code Generator</Link></li>
-                                        <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Link Shortener</Link></li>
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Bulk Import</Link></li>
                                     </ul>
                                 </div>
@@ -416,9 +415,10 @@ const LandingPage = () => {
                                     <ul className="space-y-4 text-sm text-slate-500">
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Link Hub</Link></li>
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Categories</Link></li>
+                                        <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Community</Link></li>
+                                        <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Private Vault</Link></li>
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Collections</Link></li>
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Starred Links</Link></li>
-                                        <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Private Vault</Link></li>
                                     </ul>
                                 </div>
                                 <div>
