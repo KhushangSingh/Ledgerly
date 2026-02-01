@@ -206,26 +206,7 @@ const Settings = () => {
                             </div>
                         </section>
 
-                        <hr className="border-white/5" />
 
-                        {/* Tools & Integrations Link */}
-                        <section>
-                            <Link
-                                to="/tools"
-                                className="flex items-center justify-between p-4 bg-[#111] border border-white/10 rounded-xl hover:bg-white/5 hover:border-white/20 transition-all group"
-                            >
-                                <div className="flex items-center gap-3">
-                                    <div className="p-2 bg-blue-500/20 rounded-lg">
-                                        <FaPuzzlePiece className="text-blue-400" />
-                                    </div>
-                                    <div>
-                                        <span className="text-white font-medium">Tools & Integrations</span>
-                                        <p className="text-gray-500 text-sm">Chrome extension, bookmarklet, import/export</p>
-                                    </div>
-                                </div>
-                                <span className="text-gray-500 group-hover:text-white transition-colors">→</span>
-                            </Link>
-                        </section>
 
                         <div className="pt-4">
                             <button type="submit" className="flex items-center gap-2 bg-white text-black px-8 py-3 rounded-xl font-bold hover:bg-gray-200 transition-colors">
