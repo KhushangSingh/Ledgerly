@@ -392,7 +392,7 @@ const LandingPage = () => {
                 <div className="w-full pt-20 pb-12">
                     <div className="max-w-7xl mx-auto px-6 md:px-12">
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-16">
-                            <div>
+                            <div className="col-span-1 md:col-span-4 space-y-6">
                                 <div className="flex items-center gap-2 mb-6">
                                     <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-500 to-indigo-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/20">
                                         L
