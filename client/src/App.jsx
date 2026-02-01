@@ -19,6 +19,7 @@ import Vault from './pages/Vault';
 import Community from './pages/Community';
 import Settings from './pages/Settings';
 import Starred from './pages/Starred';
+import QuickSave from './pages/QuickSave';
 import Collections from './pages/Collections';
 import TermsOfService from './pages/TermsOfService';
 import AnalyticsTracker from './components/AnalyticsTracker';
