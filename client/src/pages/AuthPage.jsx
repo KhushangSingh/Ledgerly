@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGoogle, FaGithub, FaEnvelope, FaLock, FaUser, FaArrowRight, FaArrowLeft } from 'react-icons/fa';
-import logo from '/logo-png.png';
+import logo from "/logo.png";
 
 const AuthPage = () => {
     const navigate = useNavigate();

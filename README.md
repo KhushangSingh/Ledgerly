@@ -75,4 +75,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
-This project is open-source and available under the MIT License.
+© 2026 Ledgerly. All Rights Reserved.
+
+This project is created for personal portfolio and educational purposes.  
+**Unauthorized commercial use, reproduction, or redistribution of this code is strictly prohibited.**

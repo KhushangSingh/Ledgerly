@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { FaSignOutAlt, FaChevronDown, FaCog, FaLink, FaLayerGroup, FaBox, FaUsers, FaStar, FaBars, FaTimes, FaPuzzlePiece, FaFolder } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
-import logo from '/logo-png.png';
+import logo from "/logo.png";
 import ConfirmModal from './ConfirmModal';
 
 const Sidebar = () => {
