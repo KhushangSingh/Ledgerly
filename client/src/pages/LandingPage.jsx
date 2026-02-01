@@ -429,9 +429,10 @@ const LandingPage = () => {
                                 <div>
                                     <h4 className="font-bold text-white mb-6">Legal</h4>
                                     <ul className="space-y-4 text-sm text-slate-500">
-                                        {['Privacy Policy', 'Cookie Policy', 'Security', 'Sitemap'].map((item) => (
-                                            <li key={item}><a href="#" className="hover:text-blue-400 transition-colors">{item}</a></li>
-                                        ))}
+                                        <li><Link to="/privacy" className="hover:text-blue-400 transition-colors">Privacy Policy</Link></li>
+                                        <li><Link to="/terms" className="hover:text-blue-400 transition-colors">Terms of Service</Link></li>
+                                        <li><a href="#" className="hover:text-blue-400 transition-colors">Security</a></li>
+                                        <li><a href="#" className="hover:text-blue-400 transition-colors">Sitemap</a></li>
                                     </ul>
                                 </div>
                             </div>
