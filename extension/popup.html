@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ledgerly</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <img src="icons/icon48.png" alt="Ledgerly" class="logo">
+      <span class="brand">Ledgerly</span>
+    </div>
+
+    <!-- Login View -->
+    <div id="login-view" class="view">
+      <p class="subtitle">Login to save links to your vault</p>
+      <form id="login-form">
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="btn btn-primary" id="login-btn">
+          <span>Login</span>
+        </button>
+        <p class="error-msg" id="login-error"></p>
+      </form>
+      
+      <div class="divider">
+        <span>or</span>
+      </div>
+      
+      <button id="web-login-btn" class="btn btn-secondary">
+        <span>🌐 Get token from website</span>
+      </button>
+      <p class="hint">Login to Ledgerly website first, then click above</p>
+    </div>
+
+    <!-- Main View (Add Link) -->
+    <div id="main-view" class="view hidden">
+      <div class="user-info">
+        <span id="user-name">Welcome!</span>
+        <button id="logout-btn" class="btn-link">Logout</button>
+      </div>
+
+      <!-- Auto-captured Info -->
+      <div class="link-preview">
+        <img id="page-favicon" src="" alt="" class="favicon">
+        <div class="link-info">
+          <p id="page-title" class="page-title">Page Title</p>
+          <p id="page-url" class="page-url">https://example.com</p>
+        </div>
+      </div>
+
+      <!-- Add Link Form -->
+      <form id="add-link-form">
+        <div class="input-group">
+          <label for="title">Title</label>
+          <input type="text" id="title" placeholder="Link title" required>
+        </div>
+
+        <div class="inline-row">
+          <div class="input-group">
+            <label for="category">Category</label>
+            <select id="category" required>
+              <option value="">Select</option>
+              <option value="AI & ML">AI & ML</option>
+              <option value="Design">Design</option>
+              <option value="Development">Development</option>
+              <option value="Productivity">Productivity</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Content Creation">Content Creation</option>
+              <option value="Collaboration">Collaboration</option>
+              <option value="Business">Business</option>
+              <option value="No-Code">No-Code</option>
+              <option value="Data & Analytics">Data & Analytics</option>
+              <option value="Security">Security</option>
+              <option value="Sales">Sales</option>
+              <option value="Finance">Finance</option>
+              <option value="Education">Education</option>
+              <option value="E-commerce">E-commerce</option>
+              <option value="Customer Support">Customer Support</option>
+              <option value="HR & Hiring">HR & Hiring</option>
+              <option value="Legal">Legal</option>
+              <option value="Web3 & Crypto">Web3 & Crypto</option>
+              <option value="Utilities">Utilities</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label for="pricing">Pricing</label>
+            <select id="pricing">
+              <option value="Free">Free</option>
+              <option value="Freemium">Freemium</option>
+              <option value="Paid">Paid</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="tags">Tags <span class="optional">(comma separated)</span></label>
+          <input type="text" id="tags" placeholder="e.g., tool, free, design">
+        </div>
+
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="is-public" checked>
+            <span>Share with community</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="save-btn">
+          <span>Save to Vault</span>
+        </button>
+        
+        <p class="error-msg" id="save-error"></p>
+        <p class="success-msg hidden" id="save-success">✓ Saved!</p>
+      </form>
+      
+      <p class="footer-hint">You can edit link details anytime in your vault</p>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loading-view" class="view hidden">
+      <div class="loader"></div>
+      <p>Loading...</p>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

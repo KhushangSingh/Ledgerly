@@ -1,0 +1,23 @@
+export const CATEGORIES = [
+    'AI & ML',
+    'Design',
+    'Development',
+    'Productivity',
+    'Marketing',
+    'Content Creation',
+    'Collaboration',
+    'Business',
+    'No-Code',
+    'Data & Analytics',
+    'Security',
+    'Sales',
+    'Finance',
+    'Education',
+    'E-commerce',
+    'Customer Support',
+    'HR & Hiring',
+    'Legal',
+    'Web3 & Crypto',
+    'Utilities',
+    'Other'
+];
