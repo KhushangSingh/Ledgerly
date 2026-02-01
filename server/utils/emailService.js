@@ -11,7 +11,7 @@ const sendEmail = async (options) => {
         const resend = new Resend(process.env.RESEND_API_KEY);
 
         await resend.emails.send({
-            from: 'Ledgerly <onboarding@resend.dev>', // Use verify domain in production
+            from: 'Ledgerly <onboarding@resend.dev>',
             to: options.email,
             subject: options.subject,
             html: options.html

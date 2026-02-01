@@ -141,13 +141,57 @@ router.post('/login', async (req, res) => {
 // @access  Private
 router.get('/me', auth, async (req, res) => {
     try {
-        const user = await User.findById(req.user.id).select('-password');
+        const user = await User.findById(req.user.id);
         if (!user) {
             return res.status(404).json({ msg: 'User not found' });
         }
-        res.json(user);
+
+        // Convert to object and add hasPassword flag
+        const userObj = user.toObject();
+        userObj.hasPassword = !!userObj.password;
+        delete userObj.password;
+
+        res.json(userObj);
     } catch (err) {
         console.error('Get user error:', err.message);
+        res.status(500).json({ msg: 'Server error' });
+    }
+});
+
+// @route   PUT /api/auth/password
+// @desc    Update or set password
+// @access  Private
+router.put('/password', auth, async (req, res) => {
+    try {
+        const { currentPassword, newPassword } = req.body;
+
+        if (!newPassword || newPassword.length < 6) {
+            return res.status(400).json({ msg: 'New password must be at least 6 characters' });
+        }
+
+        const user = await User.findById(req.user.id);
+
+        // If user has a password, verify current password
+        if (user.password) {
+            if (!currentPassword) {
+                return res.status(400).json({ msg: 'Current password is required' });
+            }
+
+            const isMatch = await bcrypt.compare(currentPassword, user.password);
+            if (!isMatch) {
+                return res.status(400).json({ msg: 'Invalid current password' });
+            }
+        }
+
+        // Hash new password
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(newPassword, salt);
+
+        await user.save();
+
+        res.json({ msg: 'Password updated successfully' });
+    } catch (err) {
+        console.error('Update password error:', err.message);
         res.status(500).json({ msg: 'Server error' });
     }
 });

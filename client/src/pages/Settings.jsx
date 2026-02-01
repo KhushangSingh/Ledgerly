@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { FaUser, FaBell, FaPalette, FaSave, FaPuzzlePiece } from 'react-icons/fa';
+import { FaUser, FaBell, FaPalette, FaSave, FaPuzzlePiece, FaLock } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../utils/api';
+import toast from 'react-hot-toast';
 
 const Settings = () => {
     const { user, logout } = useAuth();
@@ -20,6 +21,41 @@ const Settings = () => {
     const handleChange = (e) => {
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         setFormData({ ...formData, [e.target.name]: value });
+    };
+
+    const [passwordData, setPasswordData] = useState({
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+    });
+
+    const handlePasswordChange = (e) => {
+        setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
+    };
+
+    const handlePasswordUpdate = async (e) => {
+        e.preventDefault();
+
+        if (passwordData.newPassword !== passwordData.confirmPassword) {
+            return toast.error("New passwords don't match");
+        }
+
+        if (passwordData.newPassword.length < 6) {
+            return toast.error("Password must be at least 6 characters");
+        }
+
+        const toastId = toast.loading('Updating password...');
+        try {
+            await api.put('/auth/password', {
+                currentPassword: passwordData.currentPassword,
+                newPassword: passwordData.newPassword
+            });
+            toast.success('Password updated successfully', { id: toastId });
+            setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+        } catch (err) {
+            console.error(err);
+            toast.error(err.response?.data?.msg || 'Failed to update password', { id: toastId });
+        }
     };
 
     const handleSubmit = (e) => {
@@ -86,6 +122,65 @@ const Settings = () => {
                                         disabled
                                         className="w-full px-4 py-3 bg-[#111]/50 border border-white/5 rounded-xl text-gray-500 cursor-not-allowed"
                                     />
+                                </div>
+                            </div>
+                        </section>
+
+                        <hr className="border-white/5" />
+
+                        {/* Password & Security Section */}
+                        <section>
+                            <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                                <FaLock className="text-green-500" /> Password & Security
+                            </h2>
+                            <div className="bg-[#111] border border-white/10 rounded-xl p-6">
+                                <h3 className="text-white font-medium mb-4">
+                                    {user?.hasPassword ? 'Change Password' : 'Set a Password'}
+                                </h3>
+                                <div className="space-y-4">
+                                    {user?.hasPassword && (
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Current Password</label>
+                                            <input
+                                                type="password"
+                                                name="currentPassword"
+                                                value={passwordData.currentPassword}
+                                                onChange={handlePasswordChange}
+                                                className="w-full px-4 py-3 bg-[#111] border border-white/10 rounded-xl text-white focus:outline-none focus:border-green-500 transition-colors"
+                                            />
+                                        </div>
+                                    )}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">New Password</label>
+                                            <input
+                                                type="password"
+                                                name="newPassword"
+                                                value={passwordData.newPassword}
+                                                onChange={handlePasswordChange}
+                                                className="w-full px-4 py-3 bg-[#111] border border-white/10 rounded-xl text-white focus:outline-none focus:border-green-500 transition-colors"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Confirm New Password</label>
+                                            <input
+                                                type="password"
+                                                name="confirmPassword"
+                                                value={passwordData.confirmPassword}
+                                                onChange={handlePasswordChange}
+                                                className="w-full px-4 py-3 bg-[#111] border border-white/10 rounded-xl text-white focus:outline-none focus:border-green-500 transition-colors"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="pt-2 flex justify-end">
+                                        <button
+                                            type="button"
+                                            onClick={handlePasswordUpdate}
+                                            className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition-colors text-sm"
+                                        >
+                                            Update Password
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </section>
