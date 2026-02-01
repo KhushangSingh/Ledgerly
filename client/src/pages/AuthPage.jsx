@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGoogle, FaApple, FaEnvelope, FaLock, FaUser, FaArrowRight, FaArrowLeft } from 'react-icons/fa';
+import { FaGoogle, FaGithub, FaEnvelope, FaLock, FaUser, FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 import logo from '/logo-png.png';
 
 const AuthPage = () => {
@@ -161,8 +161,8 @@ const AuthPage = () => {
                             <a href="http://localhost:5000/api/auth/google" className="flex items-center justify-center gap-2 px-4 py-3 bg-[#1a1a1a] hover:bg-[#222] border border-white/5 rounded-xl text-gray-300 transition-all hover:border-white/10 group">
                                 <FaGoogle className="text-sm group-hover:text-white transition-colors" /><span className="text-xs font-medium">Google</span>
                             </a>
-                            <a href="#" className="flex items-center justify-center gap-2 px-4 py-3 bg-[#1a1a1a] hover:bg-[#222] border border-white/5 rounded-xl text-gray-300 transition-all hover:border-white/10 group">
-                                <FaApple className="text-sm group-hover:text-white transition-colors" /><span className="text-xs font-medium">Apple</span>
+                            <a href="http://localhost:5000/api/auth/github" className="flex items-center justify-center gap-2 px-4 py-3 bg-[#1a1a1a] hover:bg-[#222] border border-white/5 rounded-xl text-gray-300 transition-all hover:border-white/10 group">
+                                <FaGithub className="text-sm group-hover:text-white transition-colors" /><span className="text-xs font-medium">GitHub</span>
                             </a>
                         </div>
 
