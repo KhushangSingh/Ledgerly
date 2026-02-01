@@ -21,6 +21,7 @@ import Settings from './pages/Settings';
 import Starred from './pages/Starred';
 import QuickSave from './pages/QuickSave';
 import Collections from './pages/Collections';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import AnalyticsTracker from './components/AnalyticsTracker';
 import ForgotPassword from './pages/ForgotPassword';
