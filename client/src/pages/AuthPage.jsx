@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGoogle, FaGithub, FaEnvelope, FaLock, FaUser, FaArrowRight, FaArrowLeft } from 'react-icons/fa';
@@ -144,7 +144,7 @@ const AuthPage = () => {
 
                             {mode === 'login' && (
                                 <div className="flex justify-end">
-                                    <button type="button" className="text-xs text-gray-500 hover:text-blue-400 transition-colors">Forgot Password?</button>
+                                    <Link to="/auth/forgot-password" className="text-xs text-gray-500 hover:text-blue-400 transition-colors">Forgot Password?</Link>
                                 </div>
                             )}
 

@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
 const passport = require('passport');
+const crypto = require('crypto');
 
 // @route   POST /api/auth/register
 // @desc    Register a new user
@@ -231,5 +232,103 @@ router.get('/github/callback',
         );
     }
 );
+
+// @route   POST /api/auth/forgot-password
+// @desc    Send password reset email
+// @access  Public
+router.post('/forgot-password', async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        // Create reset token
+        const resetToken = crypto.randomBytes(20).toString('hex');
+
+        // Hash token and set to user field
+        user.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+
+        // Set expire (10 minutes)
+        user.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
+
+        await user.save();
+
+        // Create reset url
+        const resetUrl = `${process.env.CLIENT_URL || 'http://localhost:5173'}/auth/reset-password/${resetToken}`;
+
+        const message = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+                <h2 style="color: #0055FF; text-align: center;">Reset Your Password</h2>
+                <p style="font-size: 16px; color: #333;">You requested a password reset. Please click the button below to set a new password.</p>
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="${resetUrl}" style="background-color: #0055FF; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">Reset Password</a>
+                </div>
+                <p style="font-size: 14px; color: #666;">This link is valid for 10 minutes.</p>
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+                <p style="font-size: 12px; color: #999; text-align: center;">If you didn't request this, please ignore this email.</p>
+            </div>
+        `;
+
+        const sendEmail = require('../utils/emailService');
+
+        try {
+            await sendEmail({
+                email: user.email,
+                subject: 'Password Reset Request',
+                html: message
+            });
+
+            res.json({ msg: 'Email sent' });
+        } catch (err) {
+            console.error(err);
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpire = undefined;
+            await user.save();
+            return res.status(500).json({ msg: 'Email could not be sent' });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ msg: 'Server error' });
+    }
+});
+
+// @route   PUT /api/auth/reset-password/:resetToken
+// @desc    Reset password
+// @access  Public
+router.put('/reset-password/:resetToken', async (req, res) => {
+    try {
+        // Get hashed token
+        const resetPasswordToken = crypto
+            .createHash('sha256')
+            .update(req.params.resetToken)
+            .digest('hex');
+
+        const user = await User.findOne({
+            resetPasswordToken,
+            resetPasswordExpire: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return res.status(400).json({ msg: 'Invalid or expired token' });
+        }
+
+        // Set new password
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(req.body.password, salt);
+
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+
+        await user.save();
+
+        res.json({ msg: 'Password updated success' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ msg: 'Server error' });
+    }
+});
 
 module.exports = router;

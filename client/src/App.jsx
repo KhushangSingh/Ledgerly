@@ -19,11 +19,11 @@ import Vault from './pages/Vault';
 import Community from './pages/Community';
 import Settings from './pages/Settings';
 import Starred from './pages/Starred';
-import QuickSave from './pages/QuickSave';
-import Tools from './pages/Tools';
 import Collections from './pages/Collections';
-import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
+import AnalyticsTracker from './components/AnalyticsTracker';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 import AddLinkModal from './components/AddLinkModal';
 
@@ -49,7 +49,7 @@ const KeyboardShortcutsWrapper = ({ children, onShowHelp, onAddLink }) => {
 
 const Layout = ({ children }) => {
   const location = useLocation();
-  const isPublicPage = location.pathname === '/' || location.pathname === '/auth' || location.pathname === '/privacy' || location.pathname === '/terms';
+  const isPublicPage = location.pathname === '/' || location.pathname === '/auth' || location.pathname === '/privacy' || location.pathname === '/terms' || location.pathname === '/auth/forgot-password' || location.pathname.startsWith('/auth/reset-password');
   const isQuickSave = location.pathname === '/quick-save';
 
   // QuickSave has its own layout (standalone popup)
@@ -82,6 +82,8 @@ function AppContent() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/auth/success" element={<AuthSuccess />} />
+          <Route path="/auth/forgot-password" element={<ForgotPassword />} />
+          <Route path="/auth/reset-password/:token" element={<ResetPassword />} />
           <Route path="/quick-save" element={<QuickSave />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfService />} />
@@ -169,6 +171,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+        <AnalyticsTracker />
         <AppContent />
       </Router>
     </AuthProvider>
