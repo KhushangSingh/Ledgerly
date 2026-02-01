@@ -39,8 +39,8 @@ const authReducer = (state, action) => {
 export const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, initialState);
 
-    // Replace with your actual API URL
-    const API_URL = 'http://localhost:5000/api/auth';
+    // API URL from environment variable
+    const API_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/auth`;
 
     useEffect(() => {
         const loadUser = async () => {

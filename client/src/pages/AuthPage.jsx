@@ -8,6 +8,7 @@ import logo from '/logo-png.png';
 const AuthPage = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
+    const API_BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
     const { login, register, isAuthenticated, error, clearErrors } = useAuth();
 
     const initialMode = searchParams.get('mode') === 'signup' ? 'signup' : 'login';
@@ -158,10 +159,10 @@ const AuthPage = () => {
                         </div>
 
                         <div className="grid grid-cols-2 gap-3">
-                            <a href="http://localhost:5000/api/auth/google" className="flex items-center justify-center gap-2 px-4 py-3 bg-[#1a1a1a] hover:bg-[#222] border border-white/5 rounded-xl text-gray-300 transition-all hover:border-white/10 group">
+                            <a href={`${API_BASE}/api/auth/google`} className="flex items-center justify-center gap-2 px-4 py-3 bg-[#1a1a1a] hover:bg-[#222] border border-white/5 rounded-xl text-gray-300 transition-all hover:border-white/10 group">
                                 <FaGoogle className="text-sm group-hover:text-white transition-colors" /><span className="text-xs font-medium">Google</span>
                             </a>
-                            <a href="http://localhost:5000/api/auth/github" className="flex items-center justify-center gap-2 px-4 py-3 bg-[#1a1a1a] hover:bg-[#222] border border-white/5 rounded-xl text-gray-300 transition-all hover:border-white/10 group">
+                            <a href={`${API_BASE}/api/auth/github`} className="flex items-center justify-center gap-2 px-4 py-3 bg-[#1a1a1a] hover:bg-[#222] border border-white/5 rounded-xl text-gray-300 transition-all hover:border-white/10 group">
                                 <FaGithub className="text-sm group-hover:text-white transition-colors" /><span className="text-xs font-medium">GitHub</span>
                             </a>
                         </div>
