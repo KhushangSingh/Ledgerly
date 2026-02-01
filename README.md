@@ -1,6 +1,6 @@
 # Ledgerly - Smart Link Management & Organization
 
-![Ledgerly Logo](client/public/logo.png)
+![Ledgerly Logo](client/public/Ledgerly-LandingPage.png)
 
 Ledgerly is a modern, full-stack MERN application designed to help users organize, categorize, and access their important links, tools, and resources efficiently. It features a stunning glassmorphism UI, secure authentication, and a robust set of tools for productivity.
 
