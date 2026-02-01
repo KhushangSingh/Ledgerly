@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
         unique: true,
         sparse: true
     },
-    appleId: {
+    githubId: {
         type: String,
         unique: true,
         sparse: true

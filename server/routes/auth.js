@@ -201,4 +201,35 @@ router.get('/google/callback',
     }
 );
 
+// @route   GET /api/auth/github
+// @desc    Auth with GitHub
+// @access  Public
+router.get('/github', passport.authenticate('github', { scope: ['user:email'] }));
+
+// @route   GET /api/auth/github/callback
+// @desc    GitHub auth callback
+// @access  Public
+router.get('/github/callback',
+    passport.authenticate('github', { failureRedirect: 'http://localhost:5173/auth?error=LoginFailed' }),
+    (req, res) => {
+        // Successful authentication, redirect home.
+        const payload = {
+            user: {
+                id: req.user.id
+            }
+        };
+
+        jwt.sign(
+            payload,
+            process.env.JWT_SECRET,
+            { expiresIn: '7d' },
+            (err, token) => {
+                if (err) throw err;
+                // Redirect to client with token
+                res.redirect(`http://localhost:5173/auth/success?token=${token}`);
+            }
+        );
+    }
+);
+
 module.exports = router;
