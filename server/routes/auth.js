@@ -179,7 +179,7 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 // @desc    Google auth callback
 // @access  Public
 router.get('/google/callback',
-    passport.authenticate('google', { failureRedirect: 'http://localhost:5173/auth?error=LoginFailed' }),
+    passport.authenticate('google', { failureRedirect: `${process.env.CLIENT_URL || 'http://localhost:5173'}/auth?error=LoginFailed` }),
     (req, res) => {
         // Successful authentication, redirect home.
         const payload = {
@@ -195,7 +195,7 @@ router.get('/google/callback',
             (err, token) => {
                 if (err) throw err;
                 // Redirect to client with token
-                res.redirect(`http://localhost:5173/auth/success?token=${token}`);
+                res.redirect(`${process.env.CLIENT_URL || 'http://localhost:5173'}/auth/success?token=${token}`);
             }
         );
     }
@@ -210,7 +210,7 @@ router.get('/github', passport.authenticate('github', { scope: ['user:email'] })
 // @desc    GitHub auth callback
 // @access  Public
 router.get('/github/callback',
-    passport.authenticate('github', { failureRedirect: 'http://localhost:5173/auth?error=LoginFailed' }),
+    passport.authenticate('github', { failureRedirect: `${process.env.CLIENT_URL || 'http://localhost:5173'}/auth?error=LoginFailed` }),
     (req, res) => {
         // Successful authentication, redirect home.
         const payload = {
@@ -226,7 +226,7 @@ router.get('/github/callback',
             (err, token) => {
                 if (err) throw err;
                 // Redirect to client with token
-                res.redirect(`http://localhost:5173/auth/success?token=${token}`);
+                res.redirect(`${process.env.CLIENT_URL || 'http://localhost:5173'}/auth/success?token=${token}`);
             }
         );
     }
