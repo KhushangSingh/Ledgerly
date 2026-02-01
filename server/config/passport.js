@@ -18,10 +18,14 @@ passport.deserializeUser(async (id, done) => {
 
 // Google Strategy (Optional - only if credentials are provided)
 if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+    const callbackURL = process.env.NODE_ENV === 'production'
+        ? 'https://ledgerly-backend-vfcc.onrender.com/api/auth/google/callback'
+        : '/api/auth/google/callback';
+
     passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "/api/auth/google/callback"
+        callbackURL: callbackURL
     },
         async (accessToken, refreshToken, profile, done) => {
             try {
@@ -60,10 +64,14 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
 if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
     const GitHubStrategy = require('passport-github2').Strategy;
 
+    const callbackURL = process.env.NODE_ENV === 'production'
+        ? 'https://ledgerly-backend-vfcc.onrender.com/api/auth/github/callback'
+        : '/api/auth/github/callback';
+
     passport.use(new GitHubStrategy({
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        callbackURL: "/api/auth/github/callback"
+        callbackURL: callbackURL
     },
         async (accessToken, refreshToken, profile, done) => {
             try {
