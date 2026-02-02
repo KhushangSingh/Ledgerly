@@ -1,6 +1,18 @@
 // API Configuration
-const API_BASE_URL = 'http://localhost:5000/api';
-const WEBSITE_URL = 'http://localhost:5173';
+const ENV = 'production'; // Options: 'production', 'development'
+
+const CONFIG = {
+  development: {
+    API_BASE_URL: 'http://localhost:5000/api',
+    WEBSITE_URL: 'http://localhost:5173'
+  },
+  production: {
+    API_BASE_URL: 'https://ledgerly-backend-vfcc.onrender.com/api',
+    WEBSITE_URL: 'https://ledgerly-ks.vercel.app'
+  }
+};
+
+const { API_BASE_URL, WEBSITE_URL } = CONFIG[ENV];
 
 // DOM Elements
 const loginView = document.getElementById('login-view');
@@ -49,17 +61,17 @@ function showView(view) {
 // Initialize extension
 async function init() {
   showView(loadingView);
-  
+
   // Check for stored token
   const data = await chrome.storage.local.get(['token', 'user']);
-  
+
   if (data.token && data.user) {
     // Verify token is still valid
     try {
       const response = await fetch(`${API_BASE_URL}/auth/me`, {
         headers: { 'x-auth-token': data.token }
       });
-      
+
       if (response.ok) {
         const user = await response.json();
         showMainView(user);
@@ -88,7 +100,7 @@ function extractSiteName(url) {
   try {
     const hostname = new URL(url).hostname.replace('www.', '');
     const domainName = hostname.split('.')[0]; // e.g., "udemy" from "udemy.com"
-    
+
     // Capitalize first letter
     return domainName.charAt(0).toUpperCase() + domainName.slice(1);
   } catch (e) {
@@ -112,28 +124,28 @@ function formatTitleFromUrl(url) {
   try {
     const urlObj = new URL(url);
     const siteName = extractSiteName(url);
-    
+
     // Get path segments, filter out empty ones and common generic segments
     const pathSegments = urlObj.pathname
       .split('/')
       .filter(seg => seg && !['user', 'users', 'profile', 'page', 'pages', 'view', 'watch', 'channel'].includes(seg.toLowerCase()));
-    
+
     if (pathSegments.length === 0) {
       // Homepage - just return site name
       return siteName;
     }
-    
+
     // Get the most meaningful segment (usually first or second)
     let pageName = pathSegments[0];
-    
+
     // If it's a very short segment like 'u' or 'p', try next one
     if (pageName.length <= 2 && pathSegments.length > 1) {
       pageName = pathSegments[1];
     }
-    
+
     // Convert to readable format
     pageName = toTitleCase(pageName);
-    
+
     return `${siteName} - ${pageName}`;
   } catch (e) {
     return '';
@@ -144,25 +156,25 @@ function formatTitleFromUrl(url) {
 async function captureCurrentPage() {
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    
+
     if (tab) {
       const cleanedTitle = cleanTitle(tab.title, tab.url);
-      
+
       currentPageData = {
         url: tab.url,
         title: cleanedTitle || '',
         favicon: tab.favIconUrl || ''
       };
-      
+
       // Update preview
       pageTitle.textContent = currentPageData.title;
       pageUrl.textContent = currentPageData.url;
       pageFavicon.src = currentPageData.favicon || 'icons/icon48.png';
       pageFavicon.onerror = () => { pageFavicon.src = 'icons/icon48.png'; };
-      
+
       // Pre-fill title
       titleInput.value = currentPageData.title;
-      
+
       // Try to auto-detect category based on URL/title
       autoDetectCategory(currentPageData.url, currentPageData.title);
     }
@@ -174,7 +186,7 @@ async function captureCurrentPage() {
 // Auto-detect category based on URL/title keywords
 function autoDetectCategory(url, title) {
   const text = (url + ' ' + title).toLowerCase();
-  
+
   const categoryKeywords = {
     'AI & ML': ['ai', 'artificial', 'machine learning', 'ml', 'gpt', 'openai', 'chatgpt', 'llm', 'neural'],
     'Design': ['design', 'figma', 'sketch', 'adobe', 'canva', 'dribbble', 'behance', 'ui', 'ux'],
@@ -192,7 +204,7 @@ function autoDetectCategory(url, title) {
     'E-commerce': ['shop', 'ecommerce', 'shopify', 'store', 'cart', 'commerce'],
     'Utilities': ['tool', 'utility', 'converter', 'generator', 'calculator']
   };
-  
+
   for (const [category, keywords] of Object.entries(categoryKeywords)) {
     if (keywords.some(keyword => text.includes(keyword))) {
       categorySelect.value = category;
@@ -212,11 +224,11 @@ webLoginBtn.addEventListener('click', async () => {
   loginError.textContent = '';
   webLoginBtn.disabled = true;
   webLoginBtn.innerHTML = '<span>Checking...</span>';
-  
+
   try {
     // First, try to find an existing tab with Ledgerly website
     const tabs = await chrome.tabs.query({ url: `${WEBSITE_URL}/*` });
-    
+
     if (tabs.length > 0) {
       // Website is open, inject script to get token from localStorage
       const result = await chrome.scripting.executeScript({
@@ -227,15 +239,15 @@ webLoginBtn.addEventListener('click', async () => {
           return { token, user: userStr ? JSON.parse(userStr) : null };
         }
       });
-      
+
       if (result && result[0] && result[0].result && result[0].result.token) {
         const { token, user } = result[0].result;
-        
+
         // Verify token is valid
         const response = await fetch('http://localhost:5000/api/auth/me', {
           headers: { 'x-auth-token': token }
         });
-        
+
         if (response.ok) {
           const userData = await response.json();
           await chrome.storage.local.set({ token, user: userData });
@@ -244,7 +256,7 @@ webLoginBtn.addEventListener('click', async () => {
           return;
         }
       }
-      
+
       loginError.textContent = 'Not logged in on website. Please login there first.';
     } else {
       // Website not open, open it in a new tab
@@ -263,39 +275,39 @@ webLoginBtn.addEventListener('click', async () => {
 // Login handler
 loginForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  
+
   const email = emailInput.value.trim();
   const password = passwordInput.value;
-  
+
   loginError.textContent = '';
   const loginBtn = document.getElementById('login-btn');
   loginBtn.disabled = true;
   loginBtn.innerHTML = '<span>Logging in...</span>';
-  
+
   console.log('Attempting login for:', email); // Debug log
-  
+
   try {
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: 'POST',
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
       body: JSON.stringify({ email, password })
     });
-    
+
     console.log('Response status:', response.status); // Debug log
-    
+
     const data = await response.json();
     console.log('Response data:', data); // Debug log
-    
+
     if (response.ok) {
       // Store token and user
-      await chrome.storage.local.set({ 
-        token: data.token, 
-        user: data.user 
+      await chrome.storage.local.set({
+        token: data.token,
+        user: data.user
       });
-      
+
       showMainView(data.user);
       await captureCurrentPage();
     } else {
@@ -321,21 +333,21 @@ logoutBtn.addEventListener('click', async () => {
 // Save link handler
 addLinkForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  
+
   saveError.textContent = '';
   saveSuccess.classList.add('hidden');
   saveBtn.disabled = true;
   saveBtn.innerHTML = '<span>Saving...</span>';
-  
+
   const { token } = await chrome.storage.local.get(['token']);
-  
+
   if (!token) {
     saveError.textContent = 'Please login again.';
     saveBtn.disabled = false;
     saveBtn.innerHTML = '<span>Save to Vault</span>';
     return;
   }
-  
+
   const linkData = {
     title: titleInput.value.trim(),
     url: currentPageData.url,
@@ -345,7 +357,7 @@ addLinkForm.addEventListener('submit', async (e) => {
     pricing: pricingSelect.value,
     isPublic: isPublicCheckbox.checked
   };
-  
+
   try {
     const response = await fetch(`${API_BASE_URL}/links`, {
       method: 'POST',
@@ -355,13 +367,13 @@ addLinkForm.addEventListener('submit', async (e) => {
       },
       body: JSON.stringify(linkData)
     });
-    
+
     const data = await response.json();
-    
+
     if (response.ok) {
       saveSuccess.classList.remove('hidden');
       saveBtn.innerHTML = '<span>✓ Saved!</span>';
-      
+
       // Reset form after delay
       setTimeout(() => {
         saveSuccess.classList.add('hidden');

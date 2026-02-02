@@ -12,6 +12,8 @@
   "host_permissions": [
     "http://localhost:5000/*",
     "http://localhost:5173/*",
+    "https://ledgerly-backend-vfcc.onrender.com/*",
+    "https://ledgerly-ks.vercel.app/*",
     "https://*/*"
   ],
   "action": {
