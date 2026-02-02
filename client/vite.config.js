@@ -10,7 +10,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['logo.png', 'logo-png.png'],
+      includeAssets: ['logo.png', 'apple-touch-icon.png', 'logo-png-hollow.png'],
       manifest: {
         name: 'Ledgerly',
         short_name: 'Ledgerly',
@@ -21,28 +21,51 @@ export default defineConfig({
         start_url: '/',
         scope: '/',
         orientation: 'portrait',
+        categories: ['productivity', 'utilities', 'tools'],
         icons: [
           {
-            src: 'logo-png.png',
+            src: 'logo.png',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: 'logo-png.png',
+            src: 'logo.png',
             sizes: '512x512',
             type: 'image/png'
           },
           {
-            src: 'logo-png.png',
+            src: 'logo.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable'
           }
+        ],
+        screenshots: [
+          {
+            src: 'Ledgerly-LandingPage.png',
+            sizes: '1280x800',
+            type: 'image/png',
+            form_factor: 'wide',
+            label: 'Home Screen'
+          },
+          {
+            src: 'Ledgerly-LinkHUb-ListView.png',
+            sizes: '1280x800',
+            type: 'image/png',
+            form_factor: 'wide',
+            label: 'Link Hub'
+          },
+           {
+            src: 'Ledgerly-LandingPage2.png',
+            sizes: '750x1334',
+            type: 'image/png',
+            form_factor: 'narrow',
+            label: 'Mobile View'
+          }
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,svg,woff,woff2}'],
-        globIgnores: ['**/logo.png'],
+        globPatterns: ['**/*.{js,css,html,ico,svg,woff,woff2,png}'],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/api\./i,

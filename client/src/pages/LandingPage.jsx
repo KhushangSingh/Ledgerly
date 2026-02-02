@@ -121,7 +121,7 @@ const LandingPage = () => {
     }
 
     return (
-        <div className="relative min-h-screen flex flex-col items-center justify-start text-slate-200 font-sans selection:bg-blue-500/30 bg-[#020617]">
+        <div className="relative min-h-screen flex flex-col items-center justify-start text-slate-200 font-sans selection:bg-blue-500/30 bg-[#020617] overflow-hidden">
 
             {/* Navbar */}
             <nav className="w-full px-8 md:px-16 lg:px-24 pt-6 flex justify-between items-center relative z-50">
@@ -323,7 +323,36 @@ const LandingPage = () => {
                     2. Sticky Inner Div (100vh) freezes the content in place.
                     3. Children transition opacity/scale based on scroll position.
                 */}
-                <div ref={targetRef} className="relative h-[400vh] w-full">
+
+                {/* MOBILE / TABLET VIEW (< md) - Simple Vertical Stack */}
+                <div className="flex md:hidden flex-col w-full px-6 space-y-24 py-24 bg-[#020617]">
+                    {tools.map((tool, index) => (
+                        <div key={tool.title} className="flex flex-col gap-8">
+                            <div className="flex flex-col gap-4">
+                                <h2 className="text-3xl font-bold text-white leading-tight">
+                                    {tool.title} <span className="text-blue-500 block">{tool.highlight}</span>
+                                </h2>
+                                <p className="text-lg text-slate-400 leading-relaxed">
+                                    {tool.desc}
+                                </p>
+                                <div className="inline-flex items-center gap-2 self-start px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-slate-300">
+                                    {tool.icon} {tool.label}
+                                </div>
+                            </div>
+                            <div className="w-full aspect-video rounded-2xl bg-[#020617] border border-white/10 shadow-lg overflow-hidden relative">
+                                <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 to-transparent" />
+                                <div className="absolute inset-0 flex items-center justify-center p-4">
+                                    {/* Override any absolute positioning in visual component if necessary, 
+                                        but for now we just render it. The visual parts are relatively contained. */}
+                                    {tool.visual}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* DESKTOP VIEW (md+) - Sticky Scroll Animation */}
+                <div ref={targetRef} className="hidden md:block relative h-[400vh] w-full">
                     <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden bg-[#020617]/50 backdrop-blur-sm">
 
                         {/* Centered Content Wrapper */}
