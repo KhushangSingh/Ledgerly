@@ -39,29 +39,6 @@ export default defineConfig({
             type: 'image/png',
             purpose: 'any maskable'
           }
-        ],
-        screenshots: [
-          {
-            src: 'Ledgerly-LandingPage.png',
-            sizes: '1280x800',
-            type: 'image/png',
-            form_factor: 'wide',
-            label: 'Home Screen'
-          },
-          {
-            src: 'Ledgerly-LinkHUb-ListView.png',
-            sizes: '1280x800',
-            type: 'image/png',
-            form_factor: 'wide',
-            label: 'Link Hub'
-          },
-           {
-            src: 'Ledgerly-LandingPage2.png',
-            sizes: '750x1334',
-            type: 'image/png',
-            form_factor: 'narrow',
-            label: 'Mobile View'
-          }
         ]
       },
       workbox: {

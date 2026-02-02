@@ -184,7 +184,7 @@ const LandingPage = () => {
                         <div className="relative z-20 w-48 md:w-[36rem] h-[4px] md:h-[6px] bg-blue-400 shadow-[0_0_20px_2px_rgba(96,165,250,0.8)] md:shadow-[0_0_30px_4px_rgba(96,165,250,0.8)] rounded-full"></div>
 
                         {/* Beam */}
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[20rem] md:w-[90rem] h-[400px] z-0 pointer-events-none">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[30rem] md:w-[90rem] h-[400px] z-0 pointer-events-none">
                             <div
                                 className="w-full h-full bg-gradient-to-b from-blue-500/40 via-blue-600/5 to-transparent blur-3xl"
                                 style={{
@@ -217,35 +217,35 @@ const LandingPage = () => {
             </div>
 
             {/* Feature Sections Collection */}
-            <div className="relative w-full z-20 mt-48">
+            <div className="relative w-full z-20 mt-24 md:mt-48">
 
                 {/* Regular Features Container (With Padding) */}
-                <div className="w-full max-w-7xl mx-auto px-6 space-y-64 mb-64">
+                <div className="w-full max-w-7xl mx-auto px-6 space-y-24 md:space-y-64 mb-24 md:mb-64">
                     {/* Feature 1: Safe & Secure */}
                     <motion.div
                         initial={{ opacity: 0, y: 40 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8 }}
-                        className="flex flex-col md:flex-row items-center gap-12 md:gap-24"
+                        className="flex flex-col md:flex-row items-center gap-6 md:gap-24"
                     >
                         <div className="w-full md:w-[40%] shrink-0 text-left">
-                            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                            <h2 className="text-2xl md:text-5xl font-bold text-white mb-3 md:mb-6 leading-tight">
                                 Your <span className="text-blue-500">favorites</span> deserve a safe space
                             </h2>
-                            <p className="text-xl text-slate-400 leading-relaxed">
-                                Private, encrypted, and built for peace of mind. <br />
+                            <p className="text-sm md:text-xl text-slate-400 leading-relaxed">
+                                Private, encrypted, and built for peace of mind. <br className="hidden md:block" />
                                 Your data stays yours, always secure.
                             </p>
                         </div>
                         <div className="w-full md:w-[60%]">
-                            <div className="aspect-video rounded-2xl bg-gradient-to-br from-[#0f172a] to-[#020617] border border-white/10 shadow-2xl flex items-center justify-center relative overflow-hidden group">
+                            <div className="aspect-video rounded-xl md:rounded-2xl bg-gradient-to-br from-[#0f172a] to-[#020617] border border-white/10 shadow-2xl flex items-center justify-center relative overflow-hidden group">
                                 <div className="absolute inset-0 bg-blue-500/5 group-hover:bg-blue-500/10 transition-colors" />
-                                <div className="w-3/4 h-3/4 rounded-xl bg-[#020617] border border-white/5 flex flex-col p-4 shadow-lg transform group-hover:scale-105 transition-transform duration-500">
-                                    <div className="flex gap-2 mb-4">
-                                        <div className="w-3 h-3 rounded-full bg-red-500/20" />
-                                        <div className="w-3 h-3 rounded-full bg-yellow-500/20" />
-                                        <div className="w-3 h-3 rounded-full bg-green-500/20" />
+                                <div className="w-3/4 h-3/4 rounded-lg md:rounded-xl bg-[#020617] border border-white/5 flex flex-col p-3 md:p-4 shadow-lg transform group-hover:scale-105 transition-transform duration-500">
+                                    <div className="flex gap-2 mb-2 md:mb-4">
+                                        <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-red-500/20" />
+                                        <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-yellow-500/20" />
+                                        <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-green-500/20" />
                                     </div>
                                     <div className="flex-1 bg-white/5 rounded-lg w-full animate-pulse" />
                                 </div>
@@ -259,22 +259,22 @@ const LandingPage = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8 }}
-                        className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-24"
+                        className="flex flex-col md:flex-row-reverse items-center gap-6 md:gap-24"
                     >
                         <div className="w-full md:w-[40%] shrink-0 text-left md:text-right">
-                            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                            <h2 className="text-2xl md:text-5xl font-bold text-white mb-3 md:mb-6 leading-tight">
                                 Type it once, <br /> <span className="text-blue-500">save it forever</span>
                             </h2>
-                            <p className="text-xl text-slate-400 leading-relaxed">
-                                No need to remember URLs ever again. <br />
+                            <p className="text-sm md:text-xl text-slate-400 leading-relaxed">
+                                No need to remember URLs ever again. <br className="hidden md:block" />
                                 One click to save, accessible for a lifetime.
                             </p>
                         </div>
                         <div className="w-full md:w-[60%]">
-                            <div className="aspect-video rounded-2xl bg-gradient-to-bl from-[#0f172a] to-[#020617] border border-white/10 shadow-2xl flex items-center justify-center relative overflow-hidden group">
+                            <div className="aspect-video rounded-xl md:rounded-2xl bg-gradient-to-bl from-[#0f172a] to-[#020617] border border-white/10 shadow-2xl flex items-center justify-center relative overflow-hidden group">
                                 <div className="absolute inset-0 bg-blue-500/5 group-hover:bg-blue-500/10 transition-colors" />
-                                <div className="w-24 h-24 rounded-full bg-blue-600/20 flex items-center justify-center border border-blue-500/30 shadow-[0_0_30px_rgba(37,99,235,0.2)] group-hover:scale-110 transition-transform duration-500">
-                                    <div className="w-12 h-12 rounded bg-blue-500 transform rotate-45" />
+                                <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-blue-600/20 flex items-center justify-center border border-blue-500/30 shadow-[0_0_30px_rgba(37,99,235,0.2)] group-hover:scale-110 transition-transform duration-500">
+                                    <div className="w-8 h-8 md:w-12 md:h-12 rounded bg-blue-500 transform rotate-45" />
                                 </div>
                             </div>
                         </div>
@@ -286,30 +286,30 @@ const LandingPage = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8 }}
-                        className="flex flex-col md:flex-row items-center gap-12 md:gap-24"
+                        className="flex flex-col md:flex-row items-center gap-6 md:gap-24"
                     >
                         <div className="w-full md:w-[40%] shrink-0 text-left">
-                            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                            <h2 className="text-2xl md:text-5xl font-bold text-white mb-3 md:mb-6 leading-tight">
                                 Unsorted <span className="text-blue-500">no more</span>
                             </h2>
-                            <p className="text-xl text-slate-400 leading-relaxed mb-8">
+                            <p className="text-sm md:text-xl text-slate-400 leading-relaxed mb-4 md:mb-8">
                                 All website links categorized, so you spend less time searching and more time browsing.
                             </p>
 
                             {/* Categories Button */}
-                            <Link to="/auth?mode=signup" className="inline-flex items-center gap-2 px-6 py-3 bg-transparent hover:bg-white/5 text-white rounded-full font-semibold border border-blue-500/30 transition-all group">
+                            <Link to="/auth?mode=signup" className="inline-flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 bg-transparent hover:bg-white/5 text-white rounded-full font-semibold border border-blue-500/30 transition-all group text-xs md:text-base">
                                 Categories
-                                <FaArrowRight size={14} className="text-blue-500 transform -rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                                <FaArrowRight size={12} className="text-blue-500 transform -rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
                             </Link>
                         </div>
                         <div className="w-full md:w-[60%]">
-                            <div className="aspect-video rounded-2xl bg-gradient-to-br from-[#0f172a] to-[#020617] border border-white/10 shadow-2xl flex items-center justify-center relative overflow-hidden group">
+                            <div className="aspect-video rounded-xl md:rounded-2xl bg-gradient-to-br from-[#0f172a] to-[#020617] border border-white/10 shadow-2xl flex items-center justify-center relative overflow-hidden group">
                                 <div className="absolute inset-0 bg-blue-500/5 group-hover:bg-blue-500/10 transition-colors" />
-                                <div className="grid grid-cols-2 gap-4 w-2/3 transform group-hover:rotate-6 transition-transform duration-500">
-                                    <div className="h-24 bg-[#020617] rounded-xl border border-white/5" />
-                                    <div className="h-24 bg-[#020617] rounded-xl border border-white/5 bg-blue-900/10" />
-                                    <div className="h-24 bg-[#020617] rounded-xl border border-white/5 bg-blue-900/10" />
-                                    <div className="h-24 bg-[#020617] rounded-xl border border-white/5" />
+                                <div className="grid grid-cols-2 gap-2 md:gap-4 w-2/3 transform group-hover:rotate-6 transition-transform duration-500">
+                                    <div className="h-12 md:h-24 bg-[#020617] rounded-lg md:rounded-xl border border-white/5" />
+                                    <div className="h-12 md:h-24 bg-[#020617] rounded-lg md:rounded-xl border border-white/5 bg-blue-900/10" />
+                                    <div className="h-12 md:h-24 bg-[#020617] rounded-lg md:rounded-xl border border-white/5 bg-blue-900/10" />
+                                    <div className="h-12 md:h-24 bg-[#020617] rounded-lg md:rounded-xl border border-white/5" />
                                 </div>
                             </div>
                         </div>
@@ -325,21 +325,21 @@ const LandingPage = () => {
                 */}
 
                 {/* MOBILE / TABLET VIEW (< md) - Simple Vertical Stack */}
-                <div className="flex md:hidden flex-col w-full px-6 space-y-24 py-24 bg-[#020617]">
+                <div className="flex md:hidden flex-col w-full px-6 space-y-12 py-12 bg-[#020617]">
                     {tools.map((tool, index) => (
-                        <div key={tool.title} className="flex flex-col gap-8">
-                            <div className="flex flex-col gap-4">
-                                <h2 className="text-3xl font-bold text-white leading-tight">
+                        <div key={tool.title} className="flex flex-col gap-4">
+                            <div className="flex flex-col gap-2">
+                                <h2 className="text-xl font-bold text-white leading-tight">
                                     {tool.title} <span className="text-blue-500 block">{tool.highlight}</span>
                                 </h2>
-                                <p className="text-lg text-slate-400 leading-relaxed">
+                                <p className="text-sm text-slate-400 leading-relaxed">
                                     {tool.desc}
                                 </p>
-                                <div className="inline-flex items-center gap-2 self-start px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-slate-300">
+                                <div className="inline-flex items-center gap-2 self-start px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs text-slate-300">
                                     {tool.icon} {tool.label}
                                 </div>
                             </div>
-                            <div className="w-full aspect-video rounded-2xl bg-[#020617] border border-white/10 shadow-lg overflow-hidden relative">
+                            <div className="w-full aspect-video rounded-xl bg-[#020617] border border-white/10 shadow-lg overflow-hidden relative">
                                 <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 to-transparent" />
                                 <div className="absolute inset-0 flex items-center justify-center p-4">
                                     {/* Override any absolute positioning in visual component if necessary, 
@@ -419,11 +419,11 @@ const LandingPage = () => {
                 {/* Glows */}
                 <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 w-full h-[600px] bg-blue-900/20 blur-[150px] rounded-full pointer-events-none -z-20"></div>
 
-                <div className="w-full pt-20 pb-12">
+                <div className="w-full pt-16 md:pt-20 pb-8 md:pb-12">
                     <div className="max-w-7xl mx-auto px-6 md:px-12">
-                        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-16">
-                            <div className="col-span-1 md:col-span-4 space-y-6">
-                                <div className="flex items-center gap-2 mb-6">
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-12 md:mb-16">
+                            <div className="col-span-1 md:col-span-4 space-y-4 md:space-y-6">
+                                <div className="flex items-center gap-2 mb-4 md:mb-6">
                                     <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-500 to-indigo-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/20">
                                         L
                                     </div>
@@ -437,8 +437,8 @@ const LandingPage = () => {
                             </div>
                             <div className="col-span-1 md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8">
                                 <div>
-                                    <h4 className="font-bold text-white mb-6">Tools</h4>
-                                    <ul className="space-y-4 text-sm text-slate-500">
+                                    <h4 className="font-bold text-white mb-4 md:mb-6">Tools</h4>
+                                    <ul className="space-y-3 md:space-y-4 text-sm text-slate-500">
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Browser Extension</Link></li>
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">QR Code Generator</Link></li>
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Bulk Import</Link></li>
@@ -446,8 +446,8 @@ const LandingPage = () => {
                                     </ul>
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-white mb-6">Features</h4>
-                                    <ul className="space-y-4 text-sm text-slate-500">
+                                    <h4 className="font-bold text-white mb-4 md:mb-6">Features</h4>
+                                    <ul className="space-y-3 md:space-y-4 text-sm text-slate-500">
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Link Hub</Link></li>
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Categories</Link></li>
                                         <li><Link to="/auth?mode=signup" className="hover:text-blue-400 transition-colors">Community</Link></li>
@@ -456,8 +456,8 @@ const LandingPage = () => {
                                     </ul>
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-white mb-6">Legal</h4>
-                                    <ul className="space-y-4 text-sm text-slate-500">
+                                    <h4 className="font-bold text-white mb-4 md:mb-6">Legal</h4>
+                                    <ul className="space-y-3 md:space-y-4 text-sm text-slate-500">
                                         <li><Link to="/privacy" className="hover:text-blue-400 transition-colors">Privacy Policy</Link></li>
                                         <li><Link to="/terms" className="hover:text-blue-400 transition-colors">Terms of Service</Link></li>
                                         <li><a href="https://khushangsingh.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">Contact</a></li>
@@ -465,9 +465,9 @@ const LandingPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+                        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500 gap-4">
                             <p>© 2026 Ledgerly Inc. All rights reserved.</p>
-                            <div className="flex items-center gap-6 mt-4 md:mt-0">
+                            <div className="flex items-center gap-6">
                                 <a href="http://khushangsingh.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-medium text-slate-400 hover:text-white transition-colors cursor-pointer flex items-center gap-2 group">
                                     Designed & Built by Khushang Singh
                                     <FaArrowRight size={10} className="-rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
