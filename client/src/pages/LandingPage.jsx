@@ -124,18 +124,18 @@ const LandingPage = () => {
         <div className="relative min-h-screen flex flex-col items-center justify-start text-slate-200 font-sans selection:bg-blue-500/30 bg-[#020617] overflow-hidden">
 
             {/* Navbar */}
-            <nav className="w-full px-8 md:px-16 lg:px-24 pt-6 flex justify-between items-center relative z-50">
+            <nav className="w-full px-6 md:px-16 lg:px-24 pt-6 flex justify-between items-center relative z-50">
                 <div className="flex items-center gap-2">
-                    <img src={logo} alt="Logo" className="w-10 h-10 object-contain" />
-                    <span className="text-2xl font-bold text-white tracking-tight">Ledgerly</span>
+                    <img src={logo} alt="Logo" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                    <span className="text-xl md:text-2xl font-bold text-white tracking-tight">Ledgerly</span>
                 </div>
 
-                <div className="flex items-center gap-6">
-                    <Link to="/auth?mode=login" className="text-sm font-bold text-white relative group py-1">
+                <div className="flex items-center gap-3 md:gap-6">
+                    <Link to="/auth?mode=login" className="text-xs md:text-sm font-bold text-white relative group py-1">
                         Log In
                         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
                     </Link>
-                    <Link to="/auth?mode=signup" className="px-6 py-2.5 bg-gradient-to-tr from-blue-500/40 to-blue-800/40 hover:from-blue-400 hover:to-blue-700 text-white rounded-2xl font-bold text-sm transition-all border border-white/20 hover:border-blue-400 hover:shadow-lg hover:shadow-blue-500/40">
+                    <Link to="/auth?mode=signup" className="px-4 py-2 md:px-6 md:py-2.5 bg-gradient-to-tr from-blue-500/40 to-blue-800/40 hover:from-blue-400 hover:to-blue-700 text-white rounded-2xl font-bold text-xs md:text-sm transition-all border border-white/20 hover:border-blue-400 hover:shadow-lg hover:shadow-blue-500/40">
                         Get Started
                     </Link>
                 </div>
@@ -181,10 +181,10 @@ const LandingPage = () => {
                     <div className="mt-96 relative flex flex-col items-center w-full z-30">
 
                         {/* Tubelight */}
-                        <div className="relative z-20 w-80 md:w-[36rem] h-[6px] bg-blue-400 shadow-[0_0_30px_4px_rgba(96,165,250,0.8)] rounded-full"></div>
+                        <div className="relative z-20 w-48 md:w-[36rem] h-[4px] md:h-[6px] bg-blue-400 shadow-[0_0_20px_2px_rgba(96,165,250,0.8)] md:shadow-[0_0_30px_4px_rgba(96,165,250,0.8)] rounded-full"></div>
 
                         {/* Beam */}
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[50rem] md:w-[90rem] h-[400px] z-0 pointer-events-none">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[20rem] md:w-[90rem] h-[400px] z-0 pointer-events-none">
                             <div
                                 className="w-full h-full bg-gradient-to-b from-blue-500/40 via-blue-600/5 to-transparent blur-3xl"
                                 style={{
@@ -196,7 +196,7 @@ const LandingPage = () => {
                         </div>
 
                         {/* Text below Tubelight */}
-                        <h2 className="mt-48 text-5xl md:text-7xl font-bold tracking-tight leading-tight text-center relative z-10">
+                        <h2 className="mt-24 md:mt-48 text-3xl md:text-7xl font-bold tracking-tight leading-tight text-center relative z-10 px-4">
                             <span className="block text-transparent bg-clip-text bg-gradient-to-b from-blue-100 via-blue-300 to-blue-500 drop-shadow-[0_0_35px_rgba(59,130,246,0.6)]">
                                 Keep your favorite
                             </span>
