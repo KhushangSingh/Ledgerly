@@ -14,6 +14,11 @@ app.use((req, res, next) => {
     next();
 });
 
+// Health Check Endpoint (for UptimeRobot/Render Keep-alive)
+app.get('/ping', (req, res) => {
+    res.status(200).send('OK');
+});
+
 // Middleware - CORS configuration for browser and extensions
 app.use(cors({
     origin: function (origin, callback) {
@@ -22,7 +27,7 @@ app.use(cors({
 
         // Production: Allow CLIENT_URL from environment
         const clientUrl = process.env.CLIENT_URL;
-        
+
         // Development: Allow localhost origins
         const allowedOrigins = [
             'http://localhost:5173',
