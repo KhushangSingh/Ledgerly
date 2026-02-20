@@ -14,16 +14,12 @@ app.use((req, res, next) => {
     next();
 });
 
-// Health Check Endpoint (for UptimeRobot/Render Keep-alive)
-app.get('/ping', (req, res) => {
-    res.status(200).send('OK');
-});
-
 // Middleware - CORS configuration for browser and extensions
 app.use(cors({
     origin: function (origin, callback) {
         // Allow requests with no origin (mobile apps, curl, extensions)
         if (!origin) return callback(null, true);
+
 
         // Production: Allow CLIENT_URL from environment
         const clientUrl = process.env.CLIENT_URL;
@@ -57,6 +53,12 @@ app.use(cors({
     credentials: true
 }));
 app.use(express.json());
+
+// Health Check Endpoint (for UptimeRobot/Render Keep-alive & custom loading screens)
+app.get('/ping', (req, res) => {
+    res.status(200).send('OK');
+});
+
 const session = require('express-session');
 const passport = require('./config/passport');
 

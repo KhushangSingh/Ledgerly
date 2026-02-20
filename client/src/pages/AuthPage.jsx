@@ -16,6 +16,64 @@ const AuthPage = () => {
     const [formData, setFormData] = useState({ username: '', email: '', password: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    // Server Wakeup State
+    const [isWakingServer, setIsWakingServer] = useState(false);
+    const [loadingPhraseIndex, setLoadingPhraseIndex] = useState(0);
+
+    const loadingPhrases = [
+        "Waking up the servers...",
+        "Establishing secure connection...",
+        "Brewing some coffee for the backend...",
+        "Preparing your digital vault...",
+        "Almost there..."
+    ];
+
+    // Cycle through loading phrases
+    useEffect(() => {
+        let interval;
+        if (isWakingServer) {
+            interval = setInterval(() => {
+                setLoadingPhraseIndex((prev) => (prev + 1) % loadingPhrases.length);
+            }, 3000);
+        }
+        return () => clearInterval(interval);
+    }, [isWakingServer]);
+
+    const handleOAuthLogin = async (provider) => {
+        // Try pinging immediately
+        try {
+            const res = await fetch(`${API_BASE}/ping`, { signal: AbortSignal.timeout(2000) }); // short timeout for quick check
+            if (res.ok) {
+                // Server is already awake, redirect immediately!
+                window.location.href = `${API_BASE}/api/auth/${provider}`;
+                return;
+            }
+        } catch (err) {
+            // Server might be sleeping (timeout or connection refused)
+        }
+
+        // Only show overlay if the server didn't respond quickly
+        setIsWakingServer(true);
+
+        // Start polling the /ping endpoint
+        const checkServer = async () => {
+            try {
+                const res = await fetch(`${API_BASE}/ping`);
+                if (res.ok) {
+                    // Server is awake, redirect to OAuth
+                    window.location.href = `${API_BASE}/api/auth/${provider}`;
+                    return;
+                }
+            } catch (err) {
+                // Ignore errors, server is still sleeping/starting
+            }
+            // Try again in 3 seconds
+            setTimeout(checkServer, 3000);
+        };
+        checkServer();
+    };
+
+
     // 1. REDIRECT LOGIC
     useEffect(() => {
         if (isAuthenticated) {
@@ -69,6 +127,94 @@ const AuthPage = () => {
                     <span className="text-sm font-medium">Back to Home</span>
                 </button>
             </motion.div>
+
+            {/* Server Wakeup Loading Overlay */}
+            <AnimatePresence>
+                {isWakingServer && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#020617]/90 backdrop-blur-md"
+                    >
+                        {/* Glowing Background Effect */}
+                        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                            <motion.div
+                                animate={{
+                                    scale: [1, 1.2, 1],
+                                    opacity: [0.3, 0.5, 0.3]
+                                }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-blue-900/30 rounded-full blur-[100px]"
+                            />
+                        </div>
+
+                        <div className="relative z-10 flex flex-col items-center gap-8">
+                            {/* Animated Logo/Spinner */}
+                            <div className="relative flex items-center justify-center w-24 h-24">
+                                <motion.div
+                                    animate={{ rotate: 360 }}
+                                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                                    className="absolute inset-0 rounded-full border-t-2 border-b-2 border-blue-500 opacity-70"
+                                />
+                                <motion.div
+                                    animate={{ rotate: -360 }}
+                                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                                    className="absolute inset-2 rounded-full border-l-2 border-r-2 border-blue-400 opacity-50"
+                                />
+                                <motion.img
+                                    src={logo}
+                                    alt="Loading"
+                                    className="w-10 h-10 object-contain drop-shadow-[0_0_15px_rgba(37,99,235,0.8)]"
+                                    animate={{ scale: [0.9, 1.1, 0.9] }}
+                                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                                />
+                            </div>
+
+                            {/* Text Content */}
+                            <div className="text-center space-y-4">
+                                <h3 className="text-2xl font-bold text-white tracking-wide">
+                                    Connecting to Ledgerly
+                                </h3>
+
+                                <div className="h-6 overflow-hidden relative">
+                                    <AnimatePresence mode="wait">
+                                        <motion.p
+                                            key={loadingPhraseIndex}
+                                            initial={{ y: 20, opacity: 0 }}
+                                            animate={{ y: 0, opacity: 1 }}
+                                            exit={{ y: -20, opacity: 0 }}
+                                            transition={{ duration: 0.5 }}
+                                            className="text-blue-400 text-sm font-medium absolute w-full"
+                                        >
+                                            {loadingPhrases[loadingPhraseIndex]}
+                                        </motion.p>
+                                    </AnimatePresence>
+                                </div>
+                            </div>
+
+                            {/* Progress bar container */}
+                            <div className="w-64 h-1.5 bg-white/10 rounded-full overflow-hidden mt-2">
+                                <motion.div
+                                    className="h-full bg-gradient-to-r from-blue-600 to-blue-400 rounded-full"
+                                    animate={{
+                                        x: ["-100%", "100%"]
+                                    }}
+                                    transition={{
+                                        duration: 1.5,
+                                        repeat: Infinity,
+                                        ease: "linear"
+                                    }}
+                                />
+                            </div>
+
+                            <p className="text-xs text-gray-500 mt-4 max-w-xs text-center border border-white/5 bg-white/5 p-2 rounded-lg">
+                                This may take up to 30 seconds if our free servers were asleep. Hang tight!
+                            </p>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             <div className="relative z-10 w-full max-w-[1000px] flex flex-col md:flex-row items-center justify-center p-6 gap-16 lg:gap-32">
 
@@ -159,12 +305,12 @@ const AuthPage = () => {
                         </div>
 
                         <div className="grid grid-cols-2 gap-3">
-                            <a href={`${API_BASE}/api/auth/google`} className="flex items-center justify-center gap-2 px-4 py-3 bg-[#1a1a1a] hover:bg-[#222] border border-white/5 rounded-xl text-gray-300 transition-all hover:border-white/10 group">
+                            <button onClick={() => handleOAuthLogin('google')} className="flex items-center justify-center gap-2 px-4 py-3 bg-[#1a1a1a] hover:bg-[#222] border border-white/5 rounded-xl text-gray-300 transition-all hover:border-white/10 group">
                                 <FaGoogle className="text-sm group-hover:text-white transition-colors" /><span className="text-xs font-medium">Google</span>
-                            </a>
-                            <a href={`${API_BASE}/api/auth/github`} className="flex items-center justify-center gap-2 px-4 py-3 bg-[#1a1a1a] hover:bg-[#222] border border-white/5 rounded-xl text-gray-300 transition-all hover:border-white/10 group">
+                            </button>
+                            <button onClick={() => handleOAuthLogin('github')} className="flex items-center justify-center gap-2 px-4 py-3 bg-[#1a1a1a] hover:bg-[#222] border border-white/5 rounded-xl text-gray-300 transition-all hover:border-white/10 group">
                                 <FaGithub className="text-sm group-hover:text-white transition-colors" /><span className="text-xs font-medium">GitHub</span>
-                            </a>
+                            </button>
                         </div>
 
                         <div className="mt-8 text-center">
