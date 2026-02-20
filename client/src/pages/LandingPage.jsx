@@ -12,7 +12,8 @@ const LandingPage = () => {
     const targetRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: targetRef,
-        offset: ["start start", "end end"]
+        offset: ["start start", "end end"],
+        layoutEffect: false // Recommended for avoiding useEffect dependency issues with ref
     });
 
     // Determine opacity/visibility of each tool based on scroll progress
@@ -121,7 +122,7 @@ const LandingPage = () => {
     }
 
     return (
-        <div className="relative min-h-screen flex flex-col items-center justify-start text-slate-200 font-sans selection:bg-blue-500/30 bg-[#020617] overflow-hidden">
+        <div className="relative min-h-screen flex flex-col items-center justify-start text-slate-200 font-sans selection:bg-blue-500/30 bg-[#020617]">
 
             {/* Navbar */}
             <nav className="w-full px-6 md:px-16 lg:px-24 pt-6 flex justify-between items-center relative z-50">
@@ -142,7 +143,7 @@ const LandingPage = () => {
             </nav>
 
             {/* --- HERO SECTION --- */}
-            <div className="relative w-full flex flex-col items-center justify-start pt-32 md:pt-40 z-10 mb-32">
+            <div className="relative w-full flex flex-col items-center justify-start pt-32 md:pt-40 z-10 mb-32 overflow-hidden">
                 {/* Hero Text */}
                 <div className="text-center max-w-5xl relative z-30 px-6 mb-12">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
@@ -356,7 +357,7 @@ const LandingPage = () => {
                     <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden bg-[#020617]/50 backdrop-blur-sm">
 
                         {/* Centered Content Wrapper */}
-                        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-12 md:gap-24">
+                        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-12 md:gap-24 h-full">
 
                             {/* Content Side */}
                             <div className="w-full md:w-[40%] relative min-h-[300px] flex flex-col justify-center">
@@ -424,10 +425,8 @@ const LandingPage = () => {
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-12 md:mb-16">
                             <div className="col-span-1 md:col-span-4 space-y-4 md:space-y-6">
                                 <div className="flex items-center gap-2 mb-4 md:mb-6">
-                                    <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-500 to-indigo-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/20">
-                                        L
-                                    </div>
-                                    <span className="text-xl font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
+                                    <img src={logo} alt="Logo" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                                    <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
                                         Ledgerly
                                     </span>
                                 </div>
