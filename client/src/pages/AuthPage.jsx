@@ -40,36 +40,31 @@ const AuthPage = () => {
     }, [isWakingServer]);
 
     const handleOAuthLogin = async (provider) => {
-        // Try pinging immediately
-        try {
-            const res = await fetch(`${API_BASE}/ping`, { signal: AbortSignal.timeout(2000) }); // short timeout for quick check
-            if (res.ok) {
-                // Server is already awake, redirect immediately!
-                window.location.href = `${API_BASE}/api/auth/${provider}`;
-                return;
-            }
-        } catch (err) {
-            // Server might be sleeping (timeout or connection refused)
-        }
+        // Start a short timer to show the loading screen (e.g., 1.5s).
+        // If the server is already awake, it responds instantly before the timer fires.
+        let timer = setTimeout(() => {
+            setIsWakingServer(true);
+        }, 1500);
 
-        // Only show overlay if the server didn't respond quickly
-        setIsWakingServer(true);
-
-        // Start polling the /ping endpoint
         const checkServer = async () => {
             try {
+                // Fetch WITHOUT AbortSignal! 
+                // Render holds this request open until the server spins up.
+                // Aborting it early tells Render's Load Balancer to cancel the wakeup.
                 const res = await fetch(`${API_BASE}/ping`);
                 if (res.ok) {
-                    // Server is awake, redirect to OAuth
+                    clearTimeout(timer);
                     window.location.href = `${API_BASE}/api/auth/${provider}`;
                     return;
                 }
             } catch (err) {
-                // Ignore errors, server is still sleeping/starting
+                // Ignore network errors (like 502/503 during boot)
             }
-            // Try again in 3 seconds
+
+            // Try again in 3 seconds if the request failed
             setTimeout(checkServer, 3000);
         };
+
         checkServer();
     };
 
